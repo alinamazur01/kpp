@@ -2,4 +2,4 @@
 #Lab1
 
 Results of testing
-![Result](screenshots/lb1_res.png)
+![Result](screenshots/lb1_res.PNG)
