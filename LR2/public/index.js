@@ -45,7 +45,7 @@ class ApiService {
 		const q = country ? `${city},${country}` : city;
 		const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${this.apiKey}`);
 
-		return await response.json();
+		return response.json();
 	}
 
 	async getWeaterByPosition(position) {
@@ -54,7 +54,7 @@ class ApiService {
 			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${this.apiKey}`
 		);
 
-		return await response.json();
+		return response.json();
 	}
 
 	getWeatherIconLink(iconCode) {
