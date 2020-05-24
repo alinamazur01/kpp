@@ -1,0 +1,16 @@
+.main-wrapper {
+	margin-top: 20px;
+}
+
+.align-center {
+	display: flex !important;
+	align-items: center;
+}
+
+.delete-btn {
+	cursor: pointer;
+}
+
+.completed {
+	text-decoration: line-through;
+}

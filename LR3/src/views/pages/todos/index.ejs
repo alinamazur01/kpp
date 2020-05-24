@@ -1,0 +1,66 @@
+<% if (todos.length) { %>
+
+<div class="ui raised segments">
+	<% todos.forEach(todo => { %>
+	<div style="display: flex;" class="ui segment">
+		<div class="ui container left aligned align-center">
+			<div class="ui checkbox">
+				<input class="todo-checkbox" data-id="<%=todo.id%>" type="checkbox" name="example" <%= todo.completed ?
+				'checked': '' %> />
+				<label></label>
+			</div>
+
+			<span class="<%= todo.completed ? 'completed': '' %>">
+				<%= todo.description %>
+			</span>
+		</div>
+
+		<div class="ui container right aligned">
+			<a href=" <%= `/${todo.id}/show` %>"><i class="info blue large circle icon"></i></a>
+			<a href=" <%= `/${todo.id}/edit` %>"><i class="edit large icon"></i></a>
+			<a class="delete-btn"><i data-id="<%=todo.id%>" class="trash red large alternate icon"></i></a>
+		</div>
+	</div>
+	<% }) %>
+</div>
+
+<% } %>
+
+<script>
+	(() => {
+		document.querySelectorAll('.delete-btn').forEach((btn) =>
+			btn.addEventListener('click', async ({ target }) => {
+				try {
+					const id = target.getAttribute('data-id');
+
+					await fetch(`api/todos/${id}`, { method: 'DELETE' });
+					location.reload(true);
+				} catch (error) {
+					console.log(error);
+				}
+			})
+		);
+
+		document.querySelectorAll('.todo-checkbox').forEach((btn) =>
+			btn.addEventListener('click', async ({ target }) => {
+				try {
+					console.log(target);
+					const id = target.getAttribute('data-id');
+
+					await fetch(`api/todos/${id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							completed: target.checked,
+						}),
+					});
+					location.reload(true);
+				} catch (error) {
+					console.log(error);
+				}
+			})
+		);
+	})();
+</script>

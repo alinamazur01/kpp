@@ -1,0 +1,24 @@
+<div class="ui attached stackable menu">
+	<div class="ui container">
+		<div class="ui secondary menu">
+			<a href="/" class="item">
+				Home
+			</a>
+			<a href="/create" class="item">
+				Create
+			</a>
+		</div>
+	</div>
+</div>
+
+<script>
+	(() => {
+		document.querySelectorAll('a.item').forEach((link) => {
+			if (link.getAttribute('href') === window.location.pathname) {
+				link.classList.add('active');
+			} else if (link.classList.contains('active')) {
+				link.classList.remove('active');
+			}
+		});
+	})();
+</script>

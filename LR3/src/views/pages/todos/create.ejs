@@ -1,0 +1,37 @@
+<div class="ui segment">
+	<form id="create-todo" class="ui form">
+		<h4 class="ui header">Create todo</h4>
+		<div class="field">
+			<label>Description:</label>
+			<input id="description" type="text" name="description" placeholder="Description" />
+		</div>
+
+		<button class="ui button" type="submit">Submit</button>
+	</form>
+</div>
+
+<script>
+	(() => {
+		const form = document.querySelector('#create-todo');
+
+		form.addEventListener('submit', async (event) => {
+			try {
+				event.preventDefault();
+
+				await fetch(`/api/todos`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						description: document.querySelector('#description').value,
+					}),
+				});
+
+				location.reload(true);
+			} catch (error) {
+				console.log(error);
+			}
+		});
+	})();
+</script>

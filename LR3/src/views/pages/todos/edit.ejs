@@ -1,0 +1,51 @@
+<div class="ui segment">
+	<form data-id="<%=todo.id%>" id="edit-todo" class="ui form">
+		<h4 class="ui header">Edit todo</h4>
+		<div class="field">
+			<label>Description:</label>
+			<input
+				id="description"
+				type="text"
+				value="<%= todo.description %>"
+				name="description"
+				placeholder="Description"
+			/>
+		</div>
+		<div class="field">
+			<div class="ui checkbox">
+				<input id="completed" type="checkbox" name="completed" <%= todo.completed ? 'checked': '' %> />
+				<label>completed</label>
+			</div>
+		</div>
+		<button class="ui button" type="submit">Submit</button>
+	</form>
+</div>
+
+<script>
+	(() => {
+		const form = document.querySelector('#edit-todo');
+
+		form.addEventListener('submit', async (event) => {
+			try {
+				event.preventDefault();
+
+				const id = event.target.getAttribute('data-id');
+
+				await fetch(`/api/todos/${id}`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						description: document.querySelector('#description').value,
+						completed: document.querySelector('#completed').checked,
+					}),
+                });
+                
+				location.reload(true);
+			} catch (error) {
+				console.log(error);
+			}
+		});
+	})();
+</script>
